@@ -1,0 +1,32 @@
+using UnityEngine;
+
+public class playerMovement : MonoBehaviour
+{
+    private string _horizontalAxis = "Horizontal",  _verticalAxis = "Vertical";
+
+    [SerializeField]
+    private float playerSpeed = 1.0f;
+
+    private Vector2 _input;
+    [SerializeField]
+    private Rigidbody2D _rb2d;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    void FixedUpdate()
+    {
+        _rb2d.linearVelocity = _input * playerSpeed;
+    }
+    void Start()
+    {
+        _rb2d = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float horizontalInput = Input.GetAxisRaw(_horizontalAxis);
+        float verticalInput = Input.GetAxisRaw(_verticalAxis);
+        _input = new Vector2(horizontalInput, verticalInput);
+        _input.Normalize();        
+    }
+}
